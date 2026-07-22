@@ -229,9 +229,9 @@
 
         <!-- რეფერალური კოდი -->
         <div class="form-group">
-          <label>რეფერალური კოდი</label>
+          <label>რეფერალური კოდი<span class="req">*</span></label>
           <input type="text" id="refCode" placeholder="მაგ. GIORGI2025" autocomplete="off" style="text-transform:uppercase">
-          <p class="ref-hint">თუ ვინმემ გირჩიათ, შეიყვანეთ მათი კოდი (არასავალდებულო)</p>
+          <div class="error-msg" id="refCodeErr">რეფერალური კოდი სავალდებულოა</div>
         </div>
 
         <hr class="divider">
@@ -277,12 +277,14 @@ function validate() {
   const employment = document.getElementById("employment").value;
   const city       = document.getElementById("city").value.trim();
   const phoneModel = document.getElementById("phoneModel").value.trim();
+  const refCode    = document.getElementById("refCode").value.trim();
   if (!name)                  { showErr("nameErr",        true); ok = false; } else showErr("nameErr",        false);
   if (!/^\d{9}$/.test(phone)) { showErr("phoneErr",       true); ok = false; } else showErr("phoneErr",       false);
   if (!sphere)                { showErr("sphereErr",      true); ok = false; } else showErr("sphereErr",      false);
   if (!employment)            { showErr("employmentErr",  true); ok = false; } else showErr("employmentErr",  false);
   if (!city)                  { showErr("cityErr",        true); ok = false; } else showErr("cityErr",        false);
   if (!phoneModel)            { showErr("phoneModelErr",  true); ok = false; } else showErr("phoneModelErr",  false);
+  if (!refCode)               { showErr("refCodeErr",     true); ok = false; } else showErr("refCodeErr",     false);
   return ok;
 }
 
