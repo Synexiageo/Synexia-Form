@@ -230,7 +230,9 @@
         <!-- რეფერალური კოდი -->
         <div class="form-group">
           <label>რეფერალური კოდი<span class="req">*</span></label>
-          <input type="text" id="refCode" placeholder="მაგ. GIORGI2025" autocomplete="off" style="text-transform:uppercase">
+          <select id="refCode">
+            <option value="" disabled selected>იტვირთება...</option>
+          </select>
           <div class="error-msg" id="refCodeErr">რეფერალური კოდი სავალდებულოა</div>
         </div>
 
@@ -261,8 +263,29 @@ const SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJ
 document.getElementById("phone").addEventListener("keydown", e => { if (e.key === " ") e.preventDefault(); });
 document.getElementById("phone").addEventListener("input", function() { this.value = this.value.replace(/\D/g,""); });
 
-// RefCode: uppercase
-document.getElementById("refCode").addEventListener("input", function() { this.value = this.value.toUpperCase(); });
+// Load influencer ref codes from Supabase
+(async function loadRefCodes() {
+  const sel = document.getElementById("refCode");
+  try {
+    const res = await fetch(`${SB_URL}/rest/v1/users?role=eq.influencer&ref_code=neq.null&select=display_name,ref_code&order=display_name`, {
+      headers: { "apikey": SB_KEY, "Authorization": "Bearer " + SB_KEY }
+    });
+    const data = await res.json();
+    sel.innerHTML = '<option value="" disabled selected>— აირჩიეთ —</option>';
+    (data||[]).forEach(u => {
+      if (!u.ref_code) return;
+      const o = document.createElement("option");
+      o.value = u.ref_code;
+      o.textContent = u.display_name + " (" + u.ref_code + ")";
+      sel.appendChild(o);
+    });
+    if (!data||!data.length) {
+      sel.innerHTML = '<option value="" disabled selected>— კოდი ვერ მოიძებნა —</option>';
+    }
+  } catch(e) {
+    sel.innerHTML = '<option value="" disabled selected>— შეცდომა —</option>';
+  }
+})();
 
 function showErr(id, show) {
   const el = document.getElementById(id);
