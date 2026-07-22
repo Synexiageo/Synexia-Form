@@ -90,6 +90,22 @@
   }
   input::placeholder { color: rgba(255,255,255,0.2); }
   input:focus { border-color: var(--blue); background: rgba(29,110,245,0.05); box-shadow: 0 0 0 3px var(--blue-glow); }
+  select {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: var(--white);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    appearance: none;
+    cursor: pointer;
+  }
+  select option { background: #112240; color: var(--white); }
+  select:focus { border-color: var(--blue); background: rgba(29,110,245,0.05); box-shadow: 0 0 0 3px var(--blue-glow); }
   .phone-wrap { display: flex; }
   .phone-prefix {
     background: rgba(29,110,245,0.15);
@@ -178,6 +194,39 @@
           <div class="error-msg" id="phoneErr">შეიყვანეთ სწორი ნომერი (9 ციფრი)</div>
         </div>
 
+        <!-- სფერო -->
+        <div class="form-group">
+          <label>რა სფეროში მუშაობთ?<span class="req">*</span></label>
+          <input type="text" id="sphere" placeholder="მაგ. IT, ვაჭრობა, განათლება, სოფლის მეურნეობა..." autocomplete="off">
+          <div class="error-msg" id="sphereErr">სფერო სავალდებულოა</div>
+        </div>
+
+        <!-- დასაქმება -->
+        <div class="form-group">
+          <label>დასაქმების სტატუსი<span class="req">*</span></label>
+          <select id="employment">
+            <option value="" disabled selected>აირჩიეთ...</option>
+            <option value="დამსაქმებელი">დამსაქმებელი (კომპანიის მფლობელი)</option>
+            <option value="დასაქმებული">დასაქმებული</option>
+            <option value="თვითდასაქმებული">თვითდასაქმებული / ფრილანსერი</option>
+          </select>
+          <div class="error-msg" id="employmentErr">დასაქმების სტატუსი სავალდებულოა</div>
+        </div>
+
+        <!-- ქალაქი -->
+        <div class="form-group">
+          <label>რომელ ქალაქში ცხოვრობთ?<span class="req">*</span></label>
+          <input type="text" id="city" placeholder="მაგ. თბილისი, ბათუმი, ქუთაისი..." autocomplete="off">
+          <div class="error-msg" id="cityErr">ქალაქი სავალდებულოა</div>
+        </div>
+
+        <!-- მობილური -->
+        <div class="form-group">
+          <label>მობილურის ბრენდი და მოდელი<span class="req">*</span></label>
+          <input type="text" id="phoneModel" placeholder="მაგ. iPhone 13 Pro, Samsung Galaxy S23..." autocomplete="off">
+          <div class="error-msg" id="phoneModelErr">მობილურის მოდელი სავალდებულოა</div>
+        </div>
+
         <!-- რეფერალური კოდი -->
         <div class="form-group">
           <label>რეფერალური კოდი</label>
@@ -222,10 +271,18 @@ function showErr(id, show) {
 
 function validate() {
   let ok = true;
-  const name  = document.getElementById("name").value.trim();
-  const phone = document.getElementById("phone").value.trim();
-  if (!name)                  { showErr("nameErr",  true); ok = false; } else showErr("nameErr",  false);
-  if (!/^\d{9}$/.test(phone)) { showErr("phoneErr", true); ok = false; } else showErr("phoneErr", false);
+  const name       = document.getElementById("name").value.trim();
+  const phone      = document.getElementById("phone").value.trim();
+  const sphere     = document.getElementById("sphere").value.trim();
+  const employment = document.getElementById("employment").value;
+  const city       = document.getElementById("city").value.trim();
+  const phoneModel = document.getElementById("phoneModel").value.trim();
+  if (!name)                  { showErr("nameErr",        true); ok = false; } else showErr("nameErr",        false);
+  if (!/^\d{9}$/.test(phone)) { showErr("phoneErr",       true); ok = false; } else showErr("phoneErr",       false);
+  if (!sphere)                { showErr("sphereErr",      true); ok = false; } else showErr("sphereErr",      false);
+  if (!employment)            { showErr("employmentErr",  true); ok = false; } else showErr("employmentErr",  false);
+  if (!city)                  { showErr("cityErr",        true); ok = false; } else showErr("cityErr",        false);
+  if (!phoneModel)            { showErr("phoneModelErr",  true); ok = false; } else showErr("phoneModelErr",  false);
   return ok;
 }
 
@@ -244,10 +301,16 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
         id: "SX-" + Date.now(),
         name: document.getElementById("name").value.trim(),
         phone: "995" + document.getElementById("phone").value.trim(),
-        ref_code: document.getElementById("refCode").value.trim(),
+        ref_code: document.getElementById("refCode").value.trim() || null,
         status: "New Lead",
         reg_date: new Date().toISOString().replace("T"," ").substring(0,16),
-        viewed: false
+        viewed: false,
+        note: [
+          "სფერო: " + document.getElementById("sphere").value.trim(),
+          "დასაქმება: " + document.getElementById("employment").value,
+          "ქალაქი: " + document.getElementById("city").value.trim(),
+          "მობილური: " + document.getElementById("phoneModel").value.trim()
+        ].join(" | ")
       })
     });
     if (res.ok) {
