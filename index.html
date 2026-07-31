@@ -208,6 +208,7 @@
   .ms-item input:checked ~ span { color: var(--white); font-weight: 600; }
   .ms-tags { display: flex; flex-wrap: wrap; gap: 5px; overflow: hidden; max-width: calc(100% - 24px); }
   .ms-tag { background: rgba(240,73,35,0.2); color: #FF7A5A; border-radius: 5px; padding: 2px 8px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+  .ms-group-hdr { padding: 8px 11px 3px; font-size: 10px; font-weight: 800; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.8px; cursor: default; }
 </style>
 </head>
 <body>
@@ -246,32 +247,64 @@
           <div class="error-msg" id="phoneErr">შეიყვანეთ სწორი ნომერი (9 ციფრი)</div>
         </div>
 
-        <!-- სფერო -->
+        <!-- პროფესია -->
         <div class="form-group">
-          <label>პროფესიის სფეროები<span class="req">*</span></label>
+          <label>პროფესია / სფერო<span class="req">*</span></label>
           <div class="ms-wrap" id="sphereWrap">
             <button type="button" class="ms-btn" id="sphereBtn" onclick="toggleSphereDrop(event)">
-              <span id="sphereLabel" class="ms-tags"><span style="color:rgba(255,255,255,0.35)">— აირჩიეთ სფეროები —</span></span>
+              <span id="sphereLabel" class="ms-tags"><span style="color:rgba(255,255,255,0.35)">— აირჩიეთ პროფესია —</span></span>
               <svg class="ms-btn-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
             </button>
             <div class="ms-drop" id="sphereDrop">
-              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="ლოჯისტიკა" onchange="sphereChange()"><span>ლოჯისტიკა (საწყობი, კურიერი, დისტრიბუცია)</span></label>
-              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="საცალო ვაჭრობა" onchange="sphereChange()"><span>საცალო ვაჭრობა (მაღაზია, სუპერმარკეტი)</span></label>
-              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="სასტუმრო-კვება" onchange="sphereChange()"><span>სასტუმრო-კვება (რესტორანი, კაფე, სასტუმრო)</span></label>
-              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="სამრეწველო" onchange="sphereChange()"><span>სამრეწველო (საწარმო, სახელოსნო)</span></label>
-              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="მშენებლობა" onchange="sphereChange()"><span>მშენებლობა</span></label>
-              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="სოფლის მეურნეობა" onchange="sphereChange()"><span>სოფლის მეურნეობა (ფერმა, სათბური)</span></label>
+              <div class="ms-group-hdr">ლოჯისტიკა</div>
+              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="საწყობის ოპერატორი" onchange="sphereChange()"><span>საწყობის ოპერატორი</span></label>
+              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="კურიერი" onchange="sphereChange()"><span>კურიერი</span></label>
+              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="სასაქონლო ცენტრის მუშა" onchange="sphereChange()"><span>სასაქონლო ცენტრის მუშა</span></label>
+              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="ამანათების დახარისხება / შეფუთვა" onchange="sphereChange()"><span>ამანათების დახარისხება / შეფუთვა</span></label>
+              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="ინვენტარიზატორი" onchange="sphereChange()"><span>ინვენტარიზატორი</span></label>
+              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="დამტვირთველი / გადმომტვირთველი" onchange="sphereChange()"><span>დამტვირთველი / გადმომტვირთველი</span></label>
+              <div class="ms-group-hdr">საცალო ვაჭრობა</div>
+              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="კასირი" onchange="sphereChange()"><span>კასირი</span></label>
+              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="გამყიდველი / კონსულტანტი" onchange="sphereChange()"><span>გამყიდველი / კონსულტანტი</span></label>
+              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="სუპერმარკეტის თანამშრომელი" onchange="sphereChange()"><span>სუპერმარკეტის თანამშრომელი</span></label>
+              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="თაროების ავსება" onchange="sphereChange()"><span>თაროების ავსება</span></label>
+              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="საქონლის მიმღები" onchange="sphereChange()"><span>საქონლის მიმღები</span></label>
+              <div class="ms-group-hdr">სასტუმრო-კვება</div>
+              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="მიმტანი" onchange="sphereChange()"><span>მიმტანი</span></label>
+              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="ბარმენი" onchange="sphereChange()"><span>ბარმენი</span></label>
+              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="მზარეული" onchange="sphereChange()"><span>მზარეული</span></label>
+              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="ოთახის ამლაგებელი" onchange="sphereChange()"><span>ოთახის ამლაგებელი</span></label>
+              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="სასტუმროს ადმინისტრატორი" onchange="sphereChange()"><span>სასტუმროს ადმინისტრატორი</span></label>
+              <div class="ms-group-hdr">სამრეწველო</div>
+              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="ასამბლეის ოპერატორი" onchange="sphereChange()"><span>ასამბლეის ოპერატორი</span></label>
+              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="სახელოსნოს მუშა" onchange="sphereChange()"><span>სახელოსნოს მუშა</span></label>
+              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="ხარისხის კონტროლი" onchange="sphereChange()"><span>ხარისხის კონტროლი</span></label>
+              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="CNC / ჩარხის ოპერატორი" onchange="sphereChange()"><span>CNC / ჩარხის ოპერატორი</span></label>
+              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="კომპონენტების სორტირება" onchange="sphereChange()"><span>კომპონენტების სორტირება</span></label>
+              <div class="ms-group-hdr">მშენებლობა</div>
+              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="ამშენებელი / ოსტატი" onchange="sphereChange()"><span>ამშენებელი / ოსტატი</span></label>
+              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="ელექტრიკოსი" onchange="sphereChange()"><span>ელექტრიკოსი</span></label>
+              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="სანტექნიკოსი" onchange="sphereChange()"><span>სანტექნიკოსი</span></label>
+              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="ფერმწერი" onchange="sphereChange()"><span>ფერმწერი</span></label>
+              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="დურგალი / ხელოსანი" onchange="sphereChange()"><span>დურგალი / ხელოსანი</span></label>
+              <div class="ms-group-hdr">სოფლის მეურნეობა</div>
+              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="ფერმერი" onchange="sphereChange()"><span>ფერმერი</span></label>
+              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="მებაღე / მებოსტნე" onchange="sphereChange()"><span>მებაღე / მებოსტნე</span></label>
+              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="მომკი" onchange="sphereChange()"><span>მომკი</span></label>
+              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="მეცხოველე" onchange="sphereChange()"><span>მეცხოველე</span></label>
+              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="სათბურის მუშა" onchange="sphereChange()"><span>სათბურის მუშა</span></label>
+              <div class="ms-group-hdr">სხვა</div>
               <label class="ms-item"><input type="checkbox" class="sphere-chk" value="სხვა" onchange="sphereChange()"><span>სხვა</span></label>
             </div>
           </div>
-          <div class="error-msg" id="sphereErr">სფეროები სავალდებულოა</div>
+          <div class="error-msg" id="sphereErr">პროფესია სავალდებულოა</div>
         </div>
 
-        <!-- სხვა სფეროს დეტალი -->
-        <div class="form-group" id="sphereDetailGroup" style="display:none">
-          <label>დეტალურად აღწერეთ თქვენი საქმიანობა<span class="req">*</span></label>
-          <textarea id="sphereDetail" rows="3" placeholder="მაგ. ვმუშაობ საბაჟო ლოჯისტიკაში, ვახდენ საქონლის დეკლარირებას..." style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:12px 14px;font-family:'DM Sans',sans-serif;font-size:15px;color:#fff;outline:none;resize:vertical;transition:border-color .2s,box-shadow .2s;" onfocus="this.style.borderColor='var(--orange)';this.style.boxShadow='0 0 0 3px var(--orange-glow)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)';this.style.boxShadow='none'"></textarea>
-          <div class="error-msg" id="sphereDetailErr">გთხოვთ დეტალურად აღწეროთ თქვენი საქმიანობა</div>
+        <!-- სამუშაოს დეტალური აღწერა -->
+        <div class="form-group" id="sphereDetailGroup">
+          <label>დეტალურად აღწერეთ თქვენი სამუშაო<span class="req">*</span></label>
+          <textarea id="sphereDetail" rows="3" placeholder="მაგ. საწყობში ვახდენ შემოსული ამანათების დახარისხებას და შეფუთვას..." style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:12px 14px;font-family:'DM Sans',sans-serif;font-size:15px;color:#fff;outline:none;resize:vertical;transition:border-color .2s,box-shadow .2s;" onfocus="this.style.borderColor='var(--orange)';this.style.boxShadow='0 0 0 3px var(--orange-glow)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)';this.style.boxShadow='none'"></textarea>
+          <div class="error-msg" id="sphereDetailErr">გთხოვთ დეტალურად აღწეროთ თქვენი სამუშაო</div>
         </div>
 
         <!-- დასაქმება -->
@@ -402,11 +435,8 @@ function sphereChange() {
   const checked = [...document.querySelectorAll(".sphere-chk:checked")];
   const btn  = document.getElementById("sphereBtn");
   const lbl  = document.getElementById("sphereLabel");
-  const detailGroup = document.getElementById("sphereDetailGroup");
-  const hasSvara = checked.some(c => c.value === "სხვა");
-  detailGroup.style.display = hasSvara ? "block" : "none";
   if (!checked.length) {
-    lbl.innerHTML = '<span style="color:rgba(255,255,255,0.35)">— აირჩიეთ სფეროები —</span>';
+    lbl.innerHTML = '<span style="color:rgba(255,255,255,0.35)">— აირჩიეთ პროფესია —</span>';
     btn.classList.remove("has-value");
   } else {
     lbl.innerHTML = checked.map(c => `<span class="ms-tag">${c.value}</span>`).join("");
@@ -459,13 +489,12 @@ function validate() {
   const city       = document.getElementById("city").value.trim();
   const phoneModel = document.getElementById("phoneModelInput").value.trim();
   const refCode    = document.getElementById("refCode").value.trim();
-  const hasSvara   = spheres.includes("სხვა");
   const detail     = document.getElementById("sphereDetail").value.trim();
 
   if (!name)                  { showErr("nameErr",        true); ok = false; } else showErr("nameErr",        false);
   if (!/^\d{9}$/.test(phone)) { showErr("phoneErr",       true); ok = false; } else showErr("phoneErr",       false);
   if (!spheres.length)        { showErr("sphereErr",      true); ok = false; } else showErr("sphereErr",      false);
-  if (hasSvara && !detail)    { showErr("sphereDetailErr",true); ok = false; } else showErr("sphereDetailErr",false);
+  if (!detail)                { showErr("sphereDetailErr",true); ok = false; } else showErr("sphereDetailErr",false);
   if (!employment)            { showErr("employmentErr",  true); ok = false; } else showErr("employmentErr",  false);
   if (!city)                  { showErr("cityErr",        true); ok = false; } else showErr("cityErr",        false);
   if (!phoneModel)            { showErr("phoneModelErr",  true); ok = false; } else showErr("phoneModelErr",  false);
@@ -493,8 +522,8 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
         reg_date: new Date().toISOString().replace("T"," ").substring(0,16),
         viewed: false,
         note: [
-          "სფეროები: " + getSelectedSpheres().join(", "),
-          document.getElementById("sphereDetail").value.trim() ? "დეტალი: " + document.getElementById("sphereDetail").value.trim() : null,
+          "პროფესია: " + getSelectedSpheres().join(", "),
+          "სამუშაო: " + document.getElementById("sphereDetail").value.trim(),
           "დასაქმება: " + document.getElementById("employment").value,
           "ქალაქი: " + document.getElementById("city").value.trim(),
           "მობილური: " + document.getElementById("phoneModelInput").value.trim()
