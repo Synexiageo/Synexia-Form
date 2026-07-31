@@ -209,7 +209,9 @@
   .ms-tags { display: flex; flex-wrap: wrap; gap: 5px; overflow: hidden; max-width: calc(100% - 24px); }
   .ms-tag { background: rgba(240,73,35,0.2); color: #FF7A5A; border-radius: 5px; padding: 2px 8px; font-size: 12px; font-weight: 600; white-space: nowrap; }
   .ms-group-hdr { padding: 8px 11px 3px; font-size: 10px; font-weight: 800; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.8px; cursor: default; }
-  .ms-desc { font-size: 11px; color: rgba(255,255,255,0.32); font-style: normal; margin-left: 4px; }
+  .ms-item-has-desc { align-items: flex-start; }
+  .ms-item-has-desc input[type=checkbox] { margin-top: 3px; }
+  .ms-item-desc { display: block; font-size: 11px; color: rgba(255,255,255,0.32); margin-top: 2px; }
 </style>
 </head>
 <body>
@@ -258,20 +260,20 @@
             </button>
             <div class="ms-drop" id="sphereDrop">
               <div class="ms-group-hdr">ლოჯისტიკა</div>
-              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="ამანათების დახარისხება" onchange="sphereChange()"><span>ამანათების დახარისხება <em class="ms-desc">(შემომავალი / გამავალი)</em></span></label>
-              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="პალეტების აწყობა" onchange="sphereChange()"><span>პალეტების აწყობა <em class="ms-desc">(სტაკინგი, განლაგება)</em></span></label>
-              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="შეფუთვა და მარკირება" onchange="sphereChange()"><span>შეფუთვა და მარკირება <em class="ms-desc">(კოლოფი, ეტიკეტი)</em></span></label>
-              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="თაროებზე განლაგება" onchange="sphereChange()"><span>თაროებზე განლაგება <em class="ms-desc">(საწყობი)</em></span></label>
-              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="ინვენტარიზაცია" onchange="sphereChange()"><span>ინვენტარიზაცია <em class="ms-desc">(დათვლა, სიების შედგენა)</em></span></label>
-              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="დატვირთვა / გადმოტვირთვა" onchange="sphereChange()"><span>დატვირთვა / გადმოტვირთვა <em class="ms-desc">(სატვირთო, ხელით)</em></span></label>
-              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="კურიერი" onchange="sphereChange()"><span>კურიერი <em class="ms-desc">(ამანათების მიტანა)</em></span></label>
+              <label class="ms-item ms-item-has-desc"><input type="checkbox" class="sphere-chk" value="ამანათების დახარისხება" onchange="sphereChange()"><span>ამანათების დახარისხება<span class="ms-item-desc">შემომავალი / გამავალი</span></span></label>
+              <label class="ms-item ms-item-has-desc"><input type="checkbox" class="sphere-chk" value="პალეტების აწყობა" onchange="sphereChange()"><span>პალეტების აწყობა<span class="ms-item-desc">სტაკინგი, განლაგება</span></span></label>
+              <label class="ms-item ms-item-has-desc"><input type="checkbox" class="sphere-chk" value="შეფუთვა და მარკირება" onchange="sphereChange()"><span>შეფუთვა და მარკირება<span class="ms-item-desc">კოლოფი, ეტიკეტი</span></span></label>
+              <label class="ms-item ms-item-has-desc"><input type="checkbox" class="sphere-chk" value="თაროებზე განლაგება" onchange="sphereChange()"><span>თაროებზე განლაგება<span class="ms-item-desc">საწყობი</span></span></label>
+              <label class="ms-item ms-item-has-desc"><input type="checkbox" class="sphere-chk" value="ინვენტარიზაცია" onchange="sphereChange()"><span>ინვენტარიზაცია<span class="ms-item-desc">დათვლა, სიების შედგენა</span></span></label>
+              <label class="ms-item ms-item-has-desc"><input type="checkbox" class="sphere-chk" value="დატვირთვა / გადმოტვირთვა" onchange="sphereChange()"><span>დატვირთვა / გადმოტვირთვა<span class="ms-item-desc">სატვირთო, ხელით</span></span></label>
+              <label class="ms-item ms-item-has-desc"><input type="checkbox" class="sphere-chk" value="კურიერი" onchange="sphereChange()"><span>კურიერი<span class="ms-item-desc">ამანათების მიტანა</span></span></label>
               <div class="ms-group-hdr">საცალო ვაჭრობა</div>
               <label class="ms-item"><input type="checkbox" class="sphere-chk" value="სალაროზე მუშაობა" onchange="sphereChange()"><span>სალაროზე მუშაობა</span></label>
               <label class="ms-item"><input type="checkbox" class="sphere-chk" value="პროდუქტის თაროზე გამოფენა" onchange="sphereChange()"><span>პროდუქტის თაროზე გამოფენა</span></label>
               <label class="ms-item"><input type="checkbox" class="sphere-chk" value="შეფუთვა / შტრიხკოდის სკანირება" onchange="sphereChange()"><span>შეფუთვა / შტრიხკოდის სკანირება</span></label>
               <label class="ms-item"><input type="checkbox" class="sphere-chk" value="საქონლის დახარისხება" onchange="sphereChange()"><span>საქონლის დახარისხება</span></label>
               <label class="ms-item"><input type="checkbox" class="sphere-chk" value="დაბრუნებული ნივთების დამუშავება" onchange="sphereChange()"><span>დაბრუნებული ნივთების დამუშავება</span></label>
-              <div class="ms-group-hdr">სასტუმრო-კვება</div>
+              <div class="ms-group-hdr">სტუმარმასპინძლობა</div>
               <label class="ms-item"><input type="checkbox" class="sphere-chk" value="მაგიდის გაშლა / სერვირება" onchange="sphereChange()"><span>მაგიდის გაშლა / სერვირება</span></label>
               <label class="ms-item"><input type="checkbox" class="sphere-chk" value="ჭურჭლის დალაგება" onchange="sphereChange()"><span>ჭურჭლის დალაგება</span></label>
               <label class="ms-item"><input type="checkbox" class="sphere-chk" value="სასმელის დასხმა" onchange="sphereChange()"><span>სასმელის დასხმა</span></label>
@@ -279,12 +281,12 @@
               <label class="ms-item"><input type="checkbox" class="sphere-chk" value="ოთახის მოწესრიგება" onchange="sphereChange()"><span>ოთახის მოწესრიგება</span></label>
               <label class="ms-item"><input type="checkbox" class="sphere-chk" value="თეთრეულის დაკეცვა" onchange="sphereChange()"><span>თეთრეულის დაკეცვა</span></label>
               <div class="ms-group-hdr">სამრეწველო</div>
-              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="დეტალების აწყობა" onchange="sphereChange()"><span>დეტალების აწყობა <em class="ms-desc">(ასამბლეის ხაზი)</em></span></label>
-              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="ხელსაწყოებით მუშაობა" onchange="sphereChange()"><span>ხელსაწყოებით მუშაობა <em class="ms-desc">(ბურღი, გასაღები)</em></span></label>
-              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="ხრახნების დაჭერა" onchange="sphereChange()"><span>ხრახნების დაჭერა <em class="ms-desc">(სკრუდრაივერი)</em></span></label>
-              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="კომპონენტების სორტირება" onchange="sphereChange()"><span>კომპონენტების სორტირება <em class="ms-desc">(ზომა / ტიპი)</em></span></label>
-              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="ხარისხის შემოწმება" onchange="sphereChange()"><span>ხარისხის შემოწმება <em class="ms-desc">(ვიზუალური)</em></span></label>
-              <label class="ms-item"><input type="checkbox" class="sphere-chk" value="მანქანების ოპერირება" onchange="sphereChange()"><span>მანქანების ოპერირება <em class="ms-desc">(CNC)</em></span></label>
+              <label class="ms-item ms-item-has-desc"><input type="checkbox" class="sphere-chk" value="დეტალების აწყობა" onchange="sphereChange()"><span>დეტალების აწყობა<span class="ms-item-desc">ასამბლეის ხაზი</span></span></label>
+              <label class="ms-item ms-item-has-desc"><input type="checkbox" class="sphere-chk" value="ხელსაწყოებით მუშაობა" onchange="sphereChange()"><span>ხელსაწყოებით მუშაობა<span class="ms-item-desc">ბურღი, გასაღები</span></span></label>
+              <label class="ms-item ms-item-has-desc"><input type="checkbox" class="sphere-chk" value="ხრახნების დაჭერა" onchange="sphereChange()"><span>ხრახნების დაჭერა<span class="ms-item-desc">სკრუდრაივერი</span></span></label>
+              <label class="ms-item ms-item-has-desc"><input type="checkbox" class="sphere-chk" value="კომპონენტების სორტირება" onchange="sphereChange()"><span>კომპონენტების სორტირება<span class="ms-item-desc">ზომა / ტიპი</span></span></label>
+              <label class="ms-item ms-item-has-desc"><input type="checkbox" class="sphere-chk" value="ხარისხის შემოწმება" onchange="sphereChange()"><span>ხარისხის შემოწმება<span class="ms-item-desc">ვიზუალური</span></span></label>
+              <label class="ms-item ms-item-has-desc"><input type="checkbox" class="sphere-chk" value="მანქანების ოპერირება" onchange="sphereChange()"><span>მანქანების ოპერირება<span class="ms-item-desc">CNC</span></span></label>
               <div class="ms-group-hdr">წვრილი ელექტრობა</div>
               <label class="ms-item"><input type="checkbox" class="sphere-chk" value="კაბელების დაერთება" onchange="sphereChange()"><span>კაბელების დაერთება</span></label>
               <label class="ms-item"><input type="checkbox" class="sphere-chk" value="სოლდირება" onchange="sphereChange()"><span>სოლდირება</span></label>
