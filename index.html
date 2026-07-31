@@ -430,7 +430,7 @@ document.addEventListener("click", function(e) {
       if (!u.ref_code) return;
       const o = document.createElement("option");
       o.value = u.ref_code;
-      o.textContent = u.display_name + " (" + u.ref_code + ")";
+      o.textContent = u.ref_code;
       sel.appendChild(o);
     });
     if (!data||!data.length) {
