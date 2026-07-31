@@ -157,6 +157,29 @@
   @keyframes popIn    { from { opacity:0; transform:scale(0.5); } to { opacity:1; transform:scale(1); } }
   @media (max-width: 480px) { .card { padding: 28px 20px; } }
 
+  /* phone combobox */
+  .combo-wrap { position: relative; }
+  .combo-input {
+    width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px; padding: 12px 14px; font-family: 'DM Sans', sans-serif; font-size: 15px;
+    color: var(--white); outline: none; transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  }
+  .combo-input::placeholder { color: rgba(255,255,255,0.2); }
+  .combo-input:focus { border-color: var(--orange); background: rgba(240,73,35,0.06); box-shadow: 0 0 0 3px var(--orange-glow); }
+  .combo-drop {
+    display: none; position: absolute; top: calc(100% + 5px); left: 0; right: 0; z-index: 300;
+    background: #2D2D2D; border: 1px solid rgba(255,255,255,0.15); border-radius: 12px;
+    max-height: 230px; overflow-y: auto; box-shadow: 0 10px 36px rgba(0,0,0,0.5); padding: 4px;
+  }
+  .combo-drop.open { display: block; }
+  .combo-opt {
+    padding: 9px 12px; font-size: 14px; color: rgba(255,255,255,0.8);
+    cursor: pointer; border-radius: 7px; transition: background 0.1s;
+  }
+  .combo-opt:hover, .combo-opt.hi { background: rgba(255,255,255,0.08); }
+  .combo-opt .hl { color: var(--orange-bright); font-weight: 700; }
+  .combo-empty { padding: 10px 12px; font-size: 13px; color: rgba(255,255,255,0.3); }
+
   /* multi-select dropdown */
   .ms-wrap { position: relative; }
   .ms-btn {
@@ -276,48 +299,13 @@
         <!-- მობილური -->
         <div class="form-group">
           <label>მობილურის მოდელი<span class="req">*</span></label>
-          <select id="phoneModel">
-            <option value="" disabled selected>— აირჩიეთ მოდელი —</option>
-            <optgroup label="Apple iPhone">
-              <option>iPhone 11</option>
-              <option>iPhone 12</option>
-              <option>iPhone 12 Pro</option>
-              <option>iPhone 13</option>
-              <option>iPhone 13 Pro</option>
-              <option>iPhone 14</option>
-              <option>iPhone 14 Pro</option>
-              <option>iPhone 15</option>
-              <option>iPhone 15 Pro</option>
-              <option>iPhone 16</option>
-              <option>iPhone 16 Pro</option>
-              <option>iPhone SE</option>
-            </optgroup>
-            <optgroup label="Samsung Galaxy">
-              <option>Samsung Galaxy A15</option>
-              <option>Samsung Galaxy A25</option>
-              <option>Samsung Galaxy A34</option>
-              <option>Samsung Galaxy A54</option>
-              <option>Samsung Galaxy A55</option>
-              <option>Samsung Galaxy S23</option>
-              <option>Samsung Galaxy S24</option>
-              <option>Samsung Galaxy S25</option>
-            </optgroup>
-            <optgroup label="Xiaomi / Redmi">
-              <option>Xiaomi Redmi 12</option>
-              <option>Xiaomi Redmi 13</option>
-              <option>Xiaomi Redmi Note 12</option>
-              <option>Xiaomi Redmi Note 13</option>
-              <option>Xiaomi 13</option>
-              <option>Xiaomi 14</option>
-            </optgroup>
-            <optgroup label="სხვა">
-              <option>Huawei</option>
-              <option>OnePlus</option>
-              <option>Realme</option>
-              <option>Oppo</option>
-              <option>სხვა მოდელი</option>
-            </optgroup>
-          </select>
+          <div class="combo-wrap" id="phoneModelWrap">
+            <input type="text" class="combo-input" id="phoneModelInput" autocomplete="off"
+              placeholder="ჩაწერეთ ან ჩამოშალეთ..."
+              oninput="filterPhones()" onfocus="openPhoneDrop()" onclick="openPhoneDrop()">
+            <div class="combo-drop" id="phoneModelDrop"></div>
+          </div>
+          <div class="hint">სწორად აირჩიეთ თქვენი მობილური ტელეფონის მოდელი!</div>
           <div class="error-msg" id="phoneModelErr">მობილურის მოდელი სავალდებულოა</div>
         </div>
 
@@ -352,6 +340,47 @@
 <script>
 const SB_URL = "https://tsfzuyujfcacultjexsy.supabase.co";
 const SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRzZnp1eXVqZmNhY3VsdGpleHN5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwNDAzNjEsImV4cCI6MjA5NDYxNjM2MX0.KwxGBmZzezolz860aPbk3zZ1hYNicDai-_n8Ce5StyA";
+
+// Phone model combobox
+const PHONES = ["სხვა","iPhone 11","iPhone 11 Pro","iPhone 11 Pro Max","iPhone SE (2nd gen)","iPhone 12 mini","iPhone 12","iPhone 12 Pro","iPhone 12 Pro Max","iPhone 13 mini","iPhone 13","iPhone 13 Pro","iPhone 13 Pro Max","iPhone SE (3rd gen)","iPhone 14","iPhone 14 Plus","iPhone 14 Pro","iPhone 14 Pro Max","iPhone 15","iPhone 15 Plus","iPhone 15 Pro","iPhone 15 Pro Max","iPhone 16","iPhone 16 Plus","iPhone 16 Pro","iPhone 16 Pro Max","iPhone 16e","iPhone 17","iPhone 17 Pro","iPhone 17 Pro Max","iPhone Air","iPhone 17e","Galaxy S26 Ultra","Galaxy S26+","Galaxy S26","Galaxy S25 Ultra","Galaxy S25+","Galaxy S25","Galaxy S25 Edge","Galaxy S25 FE","Galaxy S24 Ultra","Galaxy S24+","Galaxy S24","Galaxy S24 FE","Galaxy S23 Ultra","Galaxy S23+","Galaxy S23","Galaxy S23 FE","Galaxy S22 Ultra","Galaxy S22+","Galaxy S22","Galaxy S21 Ultra 5G","Galaxy S21+ 5G","Galaxy S21 5G","Galaxy S21 FE 5G","Galaxy S20 Ultra 5G","Galaxy S20+ 5G","Galaxy S20 5G","Galaxy S20","Galaxy S20 FE","Galaxy S20 FE 5G","Galaxy S10","Galaxy S10e","Galaxy Note20 Ultra 5G","Galaxy Note20 5G","Galaxy Note20","Galaxy Note10+","Galaxy Note10","Galaxy Note10 Lite","Galaxy Z Fold 7","Galaxy Z Fold 6","Galaxy Z Fold 5","Galaxy Z Fold 4","Galaxy Z Flip 7","Galaxy Z Flip 6","Galaxy Z Flip 5","Galaxy Z Flip 3 5G","Galaxy A57 5G","Galaxy A56 5G","Galaxy A55 5G","Galaxy A54 5G","Galaxy A53 5G","Galaxy A52","Galaxy A51","Galaxy A33 5G","Galaxy A23","Galaxy A16 5G","Galaxy A72","Galaxy M31","Galaxy M31s","Galaxy M23 5G","Galaxy XCover Pro","Google Pixel 10 Pro","Google Pixel 10","Google Pixel 9 Pro XL","Google Pixel 9 Pro","Google Pixel 9","Google Pixel 9a","Google Pixel 8 Pro","Google Pixel 8","Google Pixel 8a","Google Pixel 7 Pro","Google Pixel 7a","Xiaomi 14 Ultra","Xiaomi 14T Pro","Xiaomi 13T Pro","OnePlus 12","Motorola Razr Ultra (2025)","Nothing Phone (4a)","Tecno Spark 10 Pro","Infinix Hot 30 (4G)"];
+
+let phoneModelVal = "";
+
+function buildPhoneDrop(list, q) {
+  const drop = document.getElementById("phoneModelDrop");
+  if (!list.length) { drop.innerHTML = '<div class="combo-empty">ვერ მოიძებნა</div>'; return; }
+  drop.innerHTML = list.map(p => {
+    let label = p;
+    if (q) {
+      const i = p.toLowerCase().indexOf(q.toLowerCase());
+      if (i >= 0) label = p.slice(0,i) + '<span class="hl">' + p.slice(i, i+q.length) + '</span>' + p.slice(i+q.length);
+    }
+    return `<div class="combo-opt" onmousedown="selectPhone('${p.replace(/'/g,"\\'")}')">${label}</div>`;
+  }).join("");
+}
+function openPhoneDrop() {
+  const q = document.getElementById("phoneModelInput").value;
+  const filtered = q ? PHONES.filter(p => p.toLowerCase().includes(q.toLowerCase())) : PHONES;
+  buildPhoneDrop(filtered, q);
+  document.getElementById("phoneModelDrop").classList.add("open");
+}
+function filterPhones() {
+  const q = document.getElementById("phoneModelInput").value;
+  phoneModelVal = "";
+  const filtered = q ? PHONES.filter(p => p.toLowerCase().includes(q.toLowerCase())) : PHONES;
+  buildPhoneDrop(filtered, q);
+  document.getElementById("phoneModelDrop").classList.add("open");
+}
+function selectPhone(val) {
+  document.getElementById("phoneModelInput").value = val;
+  phoneModelVal = val;
+  document.getElementById("phoneModelDrop").classList.remove("open");
+}
+document.addEventListener("click", function(e) {
+  if (!document.getElementById("phoneModelWrap")?.contains(e.target)) {
+    document.getElementById("phoneModelDrop")?.classList.remove("open");
+  }
+});
 
 // Phone: digits only, no spaces
 document.getElementById("phone").addEventListener("keydown", e => { if (e.key === " ") e.preventDefault(); });
@@ -428,7 +457,7 @@ function validate() {
   const spheres    = getSelectedSpheres();
   const employment = document.getElementById("employment").value;
   const city       = document.getElementById("city").value.trim();
-  const phoneModel = document.getElementById("phoneModel").value;
+  const phoneModel = document.getElementById("phoneModelInput").value.trim();
   const refCode    = document.getElementById("refCode").value.trim();
   const hasSvara   = spheres.includes("სხვა");
   const detail     = document.getElementById("sphereDetail").value.trim();
@@ -468,7 +497,7 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
           document.getElementById("sphereDetail").value.trim() ? "დეტალი: " + document.getElementById("sphereDetail").value.trim() : null,
           "დასაქმება: " + document.getElementById("employment").value,
           "ქალაქი: " + document.getElementById("city").value.trim(),
-          "მობილური: " + document.getElementById("phoneModel").value
+          "მობილური: " + document.getElementById("phoneModelInput").value.trim()
         ].filter(Boolean).join(" | ")
       })
     });
