@@ -493,6 +493,7 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
         status: "New Lead",
         reg_date: new Date().toISOString().replace("T"," ").substring(0,16),
         viewed: false,
+        city: document.getElementById("city").value.trim() || null,
         note: [
           "პროფესია: " + getSelectedSpheres().join(", "),
           "სამუშაო: " + document.getElementById("sphereDetail").value.trim(),
